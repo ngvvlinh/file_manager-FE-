@@ -19,7 +19,7 @@ const styles = theme => ({
     marginBottom: '4.3em'
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 5,
   },
   menuButton: {
     marginLeft: -12,
@@ -83,12 +83,13 @@ function SearchAppBar(props) {
       <AppBar position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            <BreadcrumbText 
-                path={path} 
-                handleClickPath={handleClickPath} 
-                handleGoBack={handleGoBack}
-                canGoBack={canGoBack}
-                rootTitle="React Filemanager"
+            {/* <div> <Typography className={classes.title} noWrap>áda</Typography>  </div> */}
+            <BreadcrumbText
+              path={path}
+              handleClickPath={handleClickPath}
+              handleGoBack={handleGoBack}
+              canGoBack={canGoBack}
+              rootTitle="Filemanager"
             />
           </Typography>
           <div className={classes.grow} />
@@ -115,37 +116,37 @@ function SearchAppBar(props) {
 }
 
 SearchAppBar.propTypes = {
-    classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 
 const mapStateToProps = (state) => {
-    return {
-        value: state.fileListFilter || '',
-        path: state.path,
-        canGoBack: state.path.length
-    };
+  return {
+    value: state.fileListFilter || '',
+    path: state.path,
+    canGoBack: state.path.length
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        handleChange: (event) => {
-            dispatch(setFileListFilter(event.currentTarget.value));
-        },
-        handleGoBack: (event) => {
-            dispatch(enterToPreviousDirectory());
-        },
-        /**
-         * @param {Object} event
-         * @param {Number} index
-         * @param {Array} path
-         * @returns {undefined}
-         */        
-        handleClickPath: (event, index) => {
-            dispatch(enterToPreviousDirectoryByIndex(index));
-            event.preventDefault();
-        }
-    };
+  return {
+    handleChange: (event) => {
+      dispatch(setFileListFilter(event.currentTarget.value));
+    },
+    handleGoBack: (event) => {
+      dispatch(enterToPreviousDirectory());
+    },
+    /**
+     * @param {Object} event
+     * @param {Number} index
+     * @param {Array} path
+     * @returns {undefined}
+     */
+    handleClickPath: (event, index) => {
+      dispatch(enterToPreviousDirectoryByIndex(index));
+      event.preventDefault();
+    }
+  };
 };
 
 

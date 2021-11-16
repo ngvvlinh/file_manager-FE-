@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
-import { setVisibleDialogCreateFolder } from '../../../Actions/Actions.js';
+import { setVisibleDialogCreateFile } from '../../../Actions/Actions.js';
 
-function CreateFolderAction(props) {
+function CreateFileAction(props) {
   const { handleClick, handleClose } = props;
 
   const handleCloseAfter = (callback) => (event) => {
@@ -21,7 +21,7 @@ function CreateFolderAction(props) {
       </ListItemIcon>
 
       <Typography variant="inherit">
-        Create folder
+        Create file
       </Typography>
 
     </MenuItem >
@@ -38,9 +38,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleClick: (event) => {
-      dispatch(setVisibleDialogCreateFolder(true));
+      dispatch(setVisibleDialogCreateFile(true));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateFolderAction);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateFileAction);

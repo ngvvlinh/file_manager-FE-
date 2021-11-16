@@ -10,10 +10,10 @@ import './index.css';
 
 const store = createStore(MainReducer, applyMiddleware(thunk));
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>, 
-    document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

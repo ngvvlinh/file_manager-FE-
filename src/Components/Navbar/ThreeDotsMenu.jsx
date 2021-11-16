@@ -5,6 +5,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { connect } from 'react-redux';
 import CreateFolderAction from '../ContextMenu/ContextMenuActions/CreateFolderAction.jsx';
 import UploadFileAction from '../ContextMenu/ContextMenuActions/UploadFileAction.jsx';
+import CreatefileAction from '../ContextMenu/ContextMenuActions/CreatefileAction.jsx';
 
 class ThreeDotsMenu extends React.Component {
   state = {
@@ -22,8 +23,8 @@ class ThreeDotsMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
     return (
-      <div style={{marginLeft:'1em'}}>
-        <IconButton color="inherit" 
+      <div style={{ marginLeft: '1em' }}>
+        <IconButton color="inherit"
           aria-label="More"
           aria-owns={Boolean(anchorEl) ? 'long-menu' : undefined}
           aria-haspopup="true"
@@ -33,22 +34,23 @@ class ThreeDotsMenu extends React.Component {
 
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
           <CreateFolderAction handleClose={this.handleClose} />
+          <CreatefileAction handleClose={this.handleClose} />
           <UploadFileAction handleClose={this.handleClose} />
+
         </Menu>
       </div>
     );
   }
 }
 
-
 const mapStateToProps = (state) => {
-    return {
-    };
+  return {
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-    };
+  return {
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThreeDotsMenu);

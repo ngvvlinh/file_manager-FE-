@@ -6,7 +6,8 @@ import config from './../config.js';
  * @returns {Object}
  */
 export function list(path) {
-    return fetch(config.url_list + '?path=' + (encodeURIComponent(path) || '/'));
+  console.log("check url_list", config.url_list + '?path=' + (encodeURIComponent(path) || '/'))
+  return fetch(config.url_list);
 };
 
 
@@ -17,16 +18,36 @@ export function list(path) {
  * @returns {Object}
  */
 export function createDirectory(path, directory) {
-    return fetch(config.url_create_folder, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            path, directory
-        })
-    });
+  return fetch(config.url_create_folder, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      path, directory
+    })
+  });
 };
+
+/**
+ * Fetch API to create a file
+ * @param {String} path
+ * @param {String} filename
+ * @returns {Object}
+ */
+export function createFile(path, filename) {
+
+  return fetch(config.url_create_file, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      path, filename
+    })
+  });
+};
+
 
 
 /**
@@ -35,7 +56,7 @@ export function createDirectory(path, directory) {
  * @returns {Object}
  */
 export function getFileContent(path) {
-    return fetch(config.url_get_content + '?path=' + (encodeURIComponent(path) || '/'));
+  return fetch(config.url_get_content + '?path=' + (encodeURIComponent(path) || '/'));
 };
 
 
@@ -47,15 +68,15 @@ export function getFileContent(path) {
  * @returns {Object}
  */
 export function remove(path, filenames, recursive = true) {
-    return fetch(config.url_remove, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            path, filenames, recursive
-        })
-    });
+  return fetch(config.url_remove, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      path, filenames, recursive
+    })
+  });
 };
 
 /**
@@ -66,15 +87,15 @@ export function remove(path, filenames, recursive = true) {
  * @returns {Object}
  */
 export function move(path, destination, filenames) {
-    return fetch(config.url_move, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            path, destination, filenames
-        })
-    });
+  return fetch(config.url_move, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      path, destination, filenames
+    })
+  });
 };
 
 /**
@@ -85,15 +106,15 @@ export function move(path, destination, filenames) {
  * @returns {Object}
  */
 export function rename(path, destination) {
-    return fetch(config.url_rename, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            path, destination
-        })
-    });
+  return fetch(config.url_rename, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      path, destination
+    })
+  });
 };
 
 /**
@@ -104,15 +125,15 @@ export function rename(path, destination) {
  * @returns {Object}
  */
 export function copy(path, destination, filenames) {
-    return fetch(config.url_copy, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            path, destination, filenames
-        })
-    });
+  return fetch(config.url_copy, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      path, destination, filenames
+    })
+  });
 };
 
 /**
@@ -122,17 +143,17 @@ export function copy(path, destination, filenames) {
  * @returns {Object}
  */
 export function upload(path, fileList, formData = new FormData()) {
-    [...fileList].forEach(f => {
-        formData.append('file[]', f);
-    });
-    formData.append('path', path);
+  [...fileList].forEach(f => {
+    formData.append('file[]', f);
+  });
+  formData.append('path', path);
 
-    return fetch(config.url_upload, {
-        method: 'POST',
-        body: formData, 
-        headers: {
-            // a workaround for node connector, passing the path by header
-            path: path
-        }
-    });
+  return fetch(config.url_upload, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      // a workaround for node connector, passing the path by header
+      path: path
+    }
+  });
 };
