@@ -47,12 +47,35 @@ export const refreshFileList = () => (dispatch, getState) => {
   });
 };
 
+// read folder
+/**
+ * Request API to get file list for the selected path then refresh UI
+ * @returns {Function}
+ */
+export const refreshFolderList = () => (dispatch, getState) => {
+  const { path } = getState();
+  dispatch(setLoading(true));
+  dispatch(setSelectedFiles([]));
+
+  APIHandler.getFolderList(path.join('/')).then(r => {
+    dispatch(setLoading(false));
+    dispatch(setFileList(r));
+  }).catch(r => {
+    dispatch(setFileList([]));
+    dispatch({
+      type: 'SET_ERROR_MSG',
+      value: r.toString()
+    });
+    dispatch(setLoading(false));
+  });
+};
 
 /**
  * Request API to get file list for the selected path then refresh UI
  * @returns {Function}
  */
 export const refreshFileListSublist = () => (dispatch, getState) => {
+  console.log("chekc rss")
   const { pathSublist } = getState();
   dispatch(setLoadingSublist(true));
   dispatch(setSelectedFolderSublist(null));
@@ -238,6 +261,7 @@ export const removeItems = (files) => (dispatch, getState) => {
  * @returns {Function}
  */
 export const moveItems = (files) => (dispatch, getState) => {
+
   const { path, pathSublist, selectedFolderSublist } = getState();
   const destination = pathSublist.join('/') + '/' + selectedFolderSublist.name;
   const filenames = files.map(f => f.name);
@@ -311,6 +335,7 @@ export const setSelectedFileFromLastTo = (lastFile) => (dispatch, getState) => {
  * @returns {Function}
  */
 export const initSubList = () => (dispatch, getState) => {
+
   const { path } = getState();
   dispatch(setSelectedFolderSublist(null));
   dispatch(setFileListSublist([]));

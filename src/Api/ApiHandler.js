@@ -72,9 +72,25 @@ const fixPath = (path) => {
  * @returns {Object}
  */
 export const getFileList = (path) => {
+
   path = fixPath(path);
   return new Promise((resolve, reject) => {
     return API.list(path)
+      .then(handleFetch(resolve, reject).xthen)
+      .catch(handleFetch(resolve, reject).xcatch)
+  })
+};
+
+/**
+ * Wrap API response for retrive file liest
+ * @param {String} path
+ * @returns {Object}
+ */
+export const getFolderList = (path) => {
+  console.log("chekc resssssss")
+  path = fixPath(path);
+  return new Promise((resolve, reject) => {
+    return API.listdir(path)
       .then(handleFetch(resolve, reject).xthen)
       .catch(handleFetch(resolve, reject).xcatch)
   })

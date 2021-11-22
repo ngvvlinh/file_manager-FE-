@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'
 import MainReducer from './Reducers/MainReducer'
 import * as serviceWorker from './serviceWorker';
-import App from './App';
+
 import './index.css';
+import Filemanager from './Components/filemanager/filemanager';
 
 const store = createStore(MainReducer, applyMiddleware(thunk));
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Filemanager />
   </Provider>,
   document.getElementById('root')
 );

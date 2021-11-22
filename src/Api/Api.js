@@ -6,10 +6,21 @@ import config from './../config.js';
  * @returns {Object}
  */
 export function list(path) {
-  console.log("check url_list", config.url_list + '?path=' + (encodeURIComponent(path) || '/'))
-  return fetch(config.url_list);
+  console.log("run here call api list file", path)
+  if (path) {
+    return fetch(config.url_list);
+  }
 };
 
+/**
+ * Fetch API to list files from directory
+ * @param {String} pathdir
+ * @returns {Object}
+ */
+export function listdir(pathdir) {
+  console.log("check pathdir", pathdir)
+  return fetch(config.url_readdir + "?path=" + pathdir)
+}
 
 /**
  * Fetch API to create a directory
@@ -56,7 +67,10 @@ export function createFile(path, filename) {
  * @returns {Object}
  */
 export function getFileContent(path) {
-  return fetch(config.url_get_content + '?path=' + (encodeURIComponent(path) || '/'));
+
+  let del_str = path.slice(1);
+  let del_ = del_str.replace('/', '')
+  return fetch(config.url_get_content + '?path=' + del_);
 };
 
 
@@ -68,6 +82,7 @@ export function getFileContent(path) {
  * @returns {Object}
  */
 export function remove(path, filenames, recursive = true) {
+
   return fetch(config.url_remove, {
     method: 'POST',
     headers: {
